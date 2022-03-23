@@ -1,24 +1,21 @@
 package cmd
 
 import (
-	"fmt"
+	"cli-ip-tracker/action"
 	"github.com/spf13/cobra"
-	"os"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "cli-ip-tracker",
-	Short: "Hugo is a very fast static site generator",
-	Long:  `A cli that can track ip location`,
-	//Run: func(cmd *cobra.Command, args []string) {
-	//	// Do Stuff Here
-	//	fmt.Println("bithcass")
-	//},
+func init() {
+	rootCmd.AddCommand(trackCmd)
 }
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(os.Stderr, err)
-		os.Exit(1)
-	}
+var trackCmd = &cobra.Command{
+	Use:   "track",
+	Short: "Show the details of IP",
+	Long:  `Show details of IP`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) != 0 {
+			action.TrackIP(args[0])
+		}
+	},
 }
